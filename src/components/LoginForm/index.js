@@ -6,6 +6,7 @@ class LoginForm extends Component {
   state = {
     username: '',
     password: '',
+    errorMsg:''
   }
 
   onSubmitSuccess=()=>{
@@ -27,6 +28,10 @@ class LoginForm extends Component {
     console.log(data)
     if(response.ok===true){
         this.onSubmitSuccess()
+    }
+    else{
+        this.setState({errorMsg:data.error_msg})
+
     }
   }
 
@@ -75,6 +80,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    const {errorMsg}=this.state
     return (
       <div className="login-form-container">
         <img
@@ -98,6 +104,7 @@ class LoginForm extends Component {
           <button type="submit" className="login-button">
             Login
           </button>
+          {errorMsg && <p className="error-message">{errorMsg}</p>}
         </form>
       </div>
     )
